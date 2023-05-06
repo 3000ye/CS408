@@ -9,23 +9,23 @@ int ls[N];
 
 void solve() {
     int n; cin >> n;
-    for (int i = 1; i <= n; i ++) cin >> ls[i];
+    for (int i = 0; i < n; i ++) cin >> ls[i];
 
-    ll res = 0;
-    int l, r;
-    for (int i = 1; i <= n; i ++) {
-        for (int j = i; j <= n; j ++) {
-            ll temp = 0;
-            for (int k = i; k <= j; k ++) temp += ls[k];
+    ll res = -1, l = 0, r = n - 1;
+    for (int i = 0; i < n; i ++) {
+        ll temp = 0;
 
-            if (temp > res) {
-                l = i, r = j;
-                res = temp;
+        for (int j = i; j < n; j ++) {
+            temp += ls[j];
+
+            if (res < temp) {
+                res = temp, l = i, r = j;
             }
         }
     }
 
-    for (int i = l; i <= r; i ++) cout << ls[i] << endl;
+    if (res >= 0) cout << res << " " << ls[l] << " " << ls[r] << endl;
+    else cout << "0 " << ls[0] << " " << ls[n - 1] << endl;
 }
 
 int main() {
