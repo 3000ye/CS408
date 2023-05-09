@@ -27,12 +27,31 @@ bool IsEmpty(ListLink ls) {
 
 // 在链表头部插入
 // 头结点始终是 ls，而链表的头部就是 ls 的下一个节点
-void ListNodeInsert(ListLink ls, int i) {
+void ListNodeInsert2Head(ListLink ls, int i) {
     ListLink node = new ListNode;  // 新建链表指针
     node->val = i;  // 赋值
     node->next = ls->next;  // 将新建的 node 的下一个节点指向 ls 的下一个节点
     ls->next = node;  // 将 ls 的下一个节点指向 ndoe
 }
+
+// 按位序插入到指定为止
+void ListNodeInsert(ListLink ls, int i, int e) {
+    if (i < 1) return ;
+
+    ListLink node = ls;
+    int idx = 0;
+
+    while (node != NULL and idx < i - 1) {
+        node = node->next;
+        idx ++;
+    }
+
+    ListLink s = new ListNode;
+    s->val = e;
+    s->next = node->next;
+    node->next = s;
+}
+
 
 // 在链表中查找元素，并返回该元素的结点
 ListLink GetNode(ListLink ls, int x) {
@@ -48,19 +67,22 @@ ListLink GetNode(ListLink ls, int x) {
 }
 
 
-
 int main() {
     ListLink ls = InitListNode();
 
     for (int i = 1; i < 8; i ++) {
-        ListNodeInsert(ls, i);
+        ListNodeInsert2Head(ls, i);
     }
 
     for (ListLink p = ls->next; p != NULL; p = p->next) {
         cout << p->val << endl;
     }
 
-    cout << GetNode(ls, 20) << endl;
+    ListNodeInsert(ls, 3, 8);
+
+    for (ListLink p = ls->next; p != NULL; p = p->next) {
+        cout << p->val << endl;
+    }
 
     return 0;
 }
