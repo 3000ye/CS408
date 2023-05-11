@@ -2,9 +2,9 @@
 
 using namespace std;
 
-typedef struct ListNode {
+typedef struct DListNode {
     int val;
-    ListNode *next;
+    DListNode *next;
 } ListNode, *ListLink;
 
 // 初始化循环链表
