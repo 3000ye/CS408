@@ -6,7 +6,7 @@ typedef long long ll;
 typedef long double ld;
 typedef pair<int, string> pii;
 
-typedef struct {
+typedef struct node{
     string add, next;
     int val;
 } node;
@@ -25,7 +25,7 @@ void solve() {
 
     // 存入 vector
     vector<node> ls;
-    while (1) {
+    while (dic.count(head)) {
         node temp = dic[head];
         ls.push_back(temp);
 
@@ -34,7 +34,7 @@ void solve() {
     }
 
     // 翻转数组
-    int x = n / k, y = n % k;
+    int x = ls.size() / k;
     for (int i = 0; i < x; i ++) {
         reverse(ls.begin()+ k * i, ls.begin() + k * (i + 1));
     }
