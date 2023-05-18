@@ -5,69 +5,53 @@ using namespace std;
 typedef long long ll;
 typedef long double ld;
 
-typedef struct BiTNode {
+const int N = 100;
+struct TreeNode {
     char val;
-    BiTNode *l, *r;
-    BiTNode(): val(0), l(nullptr), r(nullptr) {}
-    BiTNode(char s): val(s), l(nullptr), r(nullptr) {}
-    BiTNode(char s, BiTNode *l, BiTNode *r): val(s), l(l), r(r) {}
-} BiTNode, *BiTree;
+    int l, r;
+} T1[N], T2[N];
 
-typedef struct {
-    char s, l, r;
-} node;
+int buildTree(struct TreeNode T[]) {
+    int n; cin >> n;
 
-BiTree creatBiTree(vector<node> &ls, int idx) {
-    if (idx >= ls.size()) return nullptr;
+    int root = -1, check[N];
+    for (int i = 0; i < n; i ++) check[i] = 0;
 
-    BiTree newNode = new BiTNode(ls[idx].s);
+    for (int i = 0; i < n; i ++) {
+        char l, r; cin >> T[i].val >> l >> r;
 
-    char l = ls[idx].l, r = ls[idx].r;
-    if (l != '-') {
-        int l_idx = l - '0';
-        newNode->l = creatBiTree(ls, l_idx);
+        if (l != '-') {
+            T[i].l = l - '0';
+            check[T[i].l] = 1;
+        }
+        else T[i].l = -1;
+
+        if (r != '-') {
+            T[i].r = r - '0';
+            check[T[i].r] = 1;
+        }
+        else T[i].r = -1;
     }
-    if (r != '-') {
-        int r_idx = r - '0';
-        newNode->r = creatBiTree(ls, r_idx);
+
+    for (int i = 0; i < n; i ++) {
+        if (!check[i]) {root = i; break;}
     }
 
-    return newNode;
+    return root;
 }
 
-void PreOrder(BiTree root, vector<char> &ls) {
-    if (!root) return ;
-
-    ls.push_back(root->val);
-    PreOrder(root->l, ls);
-    PreOrder(root->r, ls);
+bool isomorphic(int r1, int r2) {
+    if (r1 == -1 and r2 == -1) return true;
+    if ((r1 == -1 and r2 != -1) or (r1 != -1 and r2 == -1)) return false;
+    if (T1[r1].val != T2[r2].val) return false;
+    if (T1[r1].l == -1 and T2[r2].l == -1) return isomorphic(T1[r1].r, T2[r2].r);
+    
 }
 
 void solve() {
-    int n; cin >> n;
-    vector<node> ls_1;
-    for (int i = 0; i < n; i ++) {
-        char s, l, r; cin >> s >> l >> r;
-        ls_1.push_back(node{s, l, r});
-    }
-    BiTree root_1 = creatBiTree(ls_1, 0);
+    
 
-    int m; cin >> m;
-    vector<node> ls_2;
-    for (int i = 0; i < m; i ++) {
-        char s, l, r; cin >> s >> l >> r;
-        ls_2.push_back(node{s, l, r});
-    }
-    BiTree root_2 = creatBiTree(ls_2, 0);
 
-    vector<char> nodes_1, nodes_2;
-    PreOrder(root_1, nodes_1);
-    PreOrder(root_2, nodes_2);
-
-    for (auto i : nodes_1) cout << i << " ";
-    cout << endl;
-    for (auto i : nodes_2) cout << i << " ";
-    cout << endl;
 }
 
 int main() {
