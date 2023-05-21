@@ -31,17 +31,17 @@ void PreOrder(BiTree root) {
 // 中序遍历
 void InOrder(BiTree root) {
     if (root != NULL) {
-        PreOrder(root->l);  // 递归遍历左子树
+        InOrder(root->l);  // 递归遍历左子树
         cout << root->val << " ";  // 访问根结点
-        PreOrder(root->r);  // 递归遍历右子树
+        InOrder(root->r);  // 递归遍历右子树
     }
 }
 
 // 后序遍历
 void PostOrder(BiTree root) {
     if (root != NULL) {
-        PreOrder(root->l);  // 递归遍历左子树
-        PreOrder(root->r);  // 递归遍历右子树
+        PostOrder(root->l);  // 递归遍历左子树
+        PostOrder(root->r);  // 递归遍历右子树
         cout << root->val << " ";  // 访问根结点
     }
 }
