@@ -1,3 +1,5 @@
 {
-    "editor.cursorSurroundingLines": 100
+    "files.associations": {
+        "cmath": "cpp"
+    }
 }
